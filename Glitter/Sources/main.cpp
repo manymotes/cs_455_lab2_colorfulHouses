@@ -46,10 +46,35 @@ int main(int argc, char * argv[]) {
     
 
     
+    /*
+     GLfloat pentagon_vertex_buffer[] = {
+     /Pentagon
+     0.25f, 0.25f, 1.0f,
+     0.75f, 0.25f, 1.0f,
+     0.25f, 0.5f, 1.0f,
+     
+     0.25f, 0.5f, 1.0f,
+     0.75f, 0.25f, 1.0f,
+     0.75f, 0.5f, 1.0f,
+     
+     0.25f, 0.5f, 1.0f,
+     0.75f, 0.5f, 1.0f,
+     0.5f, .75f, 1.0f,
+     }
+     */
     static const GLfloat g_vertex_buffer_data[] = {
-        -1.0f, -1.0f, 0.0f,
-        1.0f, -1.0f, 0.0f,
-        0.0f,  1.0f, 0.0f,
+        //Pentagon
+        -0.25f, 0.25f, 1.0f,
+        -0.75f, 0.25f, 1.0f,
+        -0.25f, 0.5f, 1.0f,
+        
+       - 0.25f, 0.5f, 1.0f,
+       - 0.75f, 0.25f, 1.0f,
+        -0.75f, 0.5f, 1.0f,
+        
+       - 0.25f, 0.5f, 1.0f,
+       - 0.75f, 0.5f, 1.0f,
+       - 0.5f, .75f, 1.0f,
     };
     
     // This will identify our vertex buffer
@@ -73,8 +98,8 @@ int main(int argc, char * argv[]) {
                           3,                  // size
                           GL_FLOAT,           // type
                           GL_FALSE,           // normalized?
-                          3*sizeof(GLfloat),                  // stride
-                          (void*)0            // array buffer offset
+                          0,                  // stride
+                          NULL           // array buffer offset
                           );
     // Draw the triangle !
    
@@ -85,6 +110,7 @@ int main(int argc, char * argv[]) {
             glfwSetWindowShouldClose(mWindow, true);
 
         // Background Fill Color
+        
         glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
@@ -94,7 +120,7 @@ int main(int argc, char * argv[]) {
         
         //get my vertexarray and bind it
         glUseProgram(myShader);
-        glDrawArrays(GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
+        glDrawArrays(GL_TRIANGLES, 0, 9); // Starting from vertex 0; 3 vertices total -> 1 triangle
        
         
         // **********************************
