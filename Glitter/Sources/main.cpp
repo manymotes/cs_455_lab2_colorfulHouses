@@ -62,7 +62,10 @@ int main(int argc, char * argv[]) {
      0.5f, .75f, 1.0f,
      }
      */
-    static const GLfloat g_vertex_buffer_data[] = {
+    glTranslatef(0.2f, 0.2f, 0.0f);
+     GLfloat g_vertex_buffer_data[] = {
+         
+         
         //Pentagon
         -0.25f, 0.25f, 1.0f,
         -0.75f, 0.25f, 1.0f,
@@ -76,6 +79,7 @@ int main(int argc, char * argv[]) {
        - 0.75f, 0.5f, 1.0f,
        - 0.5f, .75f, 1.0f,
     };
+   
     
     // This will identify our vertex buffer
     GLuint vertexbuffer;
@@ -88,6 +92,8 @@ int main(int argc, char * argv[]) {
     //bind vertex array
     glBindVertexArray(vaoID[0]); // Bind our Vertex Array Object so we can use it
     
+    
+    //loading hte color is going to be very simular to these calls
     glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
     // Give our vertices to OpenGL.
     glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
@@ -101,6 +107,21 @@ int main(int argc, char * argv[]) {
                           0,                  // stride
                           NULL           // array buffer offset
                           );
+    
+    
+    
+    // translate next matrix
+    glm::mat4 myMatrix = glm::translate(glm::mat4(), glm::vec3(10.0f, 0.0f, 0.0f));
+    
+    
+    glm::mat4 modelviewMatrix;
+     modelviewMatrix = glm::translate(
+                                               modelviewMatrix,
+                                               glm::vec3(0.20f, -0.20f, 0.0f));
+    
+    //glm::mat4 = g_vertex_buffer_data * modelviewMatrix
+    
+    
     // Draw the triangle !
    
 	
@@ -119,9 +140,49 @@ int main(int argc, char * argv[]) {
         
         
         //get my vertexarray and bind it
+
         glUseProgram(myShader);
-        glDrawArrays(GL_TRIANGLES, 0, 9); // Starting from vertex 0; 3 vertices total -> 1 triangle
-       
+    
+        GLint unifomrNumber = glGetUniformLocation(myShader, "transformation");
+        
+        
+        glm::mat4 modelviewInit;
+        modelviewInit = glm::translate(
+                                         modelviewMatrix,
+                                         glm::vec3(0.3f, -0.3f, 0.0f));
+
+        
+        glUniformMatrix4fv(	unifomrNumber,
+                           1,
+                           GL_FALSE,
+                           glm::value_ptr(modelviewInit));
+        
+        //call 3 times
+        glDrawArrays(GL_TRIANGLES, 0, 27); // Starting from vertex 0; 3 vertices total -> 1 triangle
+        
+        
+        glUniformMatrix4fv(	unifomrNumber,
+                            1,
+                           GL_FALSE,
+                           glm::value_ptr(modelviewMatrix));
+        
+        glDrawArrays(GL_TRIANGLES, 0, 27);
+        
+        glm::mat4 modelviewfinal;
+        modelviewfinal = glm::translate(
+                                       modelviewMatrix,
+                                       glm::vec3(0.57f, -0.57f, 0.0f));
+        
+        
+        glUniformMatrix4fv(	unifomrNumber,
+                           1,
+                           GL_FALSE,
+                           glm::value_ptr(modelviewfinal));
+        
+        //call 3 times
+        glDrawArrays(GL_TRIANGLES, 0, 27); // Starting from vertex 0; 3 vertices total -> 1 triangle
+
+        
         
         // **********************************
 
