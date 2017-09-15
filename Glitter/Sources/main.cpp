@@ -65,19 +65,25 @@ int main(int argc, char * argv[]) {
     glTranslatef(0.2f, 0.2f, 0.0f);
      GLfloat g_vertex_buffer_data[] = {
          
+//        //triangle
+//         0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
+//         -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
+//         0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // top
          
+
         //Pentagon
-        -0.25f, 0.25f, 1.0f,
-        -0.75f, 0.25f, 1.0f,
-        -0.25f, 0.5f, 1.0f,
+        -0.25f, 0.25f, 1.0f, 0.0f, 1.0f, 0.0f,
+        -0.75f, 0.25f, 1.0f,  0.0f, 0.0f, 1.0f,
+        -0.25f, 0.5f, 1.0f, 1.0f, 0.0f, 0.0f,
         
-       - 0.25f, 0.5f, 1.0f,
-       - 0.75f, 0.25f, 1.0f,
-        -0.75f, 0.5f, 1.0f,
+       - 0.25f, 0.5f, 1.0f, 1.0f, 0.0f, 0.0f,
+       - 0.75f, 0.25f, 1.0f,  0.0f, 0.0f, 1.0f,
+         -0.75f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f,
         
-       - 0.25f, 0.5f, 1.0f,
-       - 0.75f, 0.5f, 1.0f,
-       - 0.5f, .75f, 1.0f,
+       - 0.25f, 0.5f, 1.0f, 1.0f, 0.0f, 0.0f,
+       - 0.75f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f,
+       - 0.5f, .75f, 1.0f, 0.0f, 1.0f, 0.0f
+         
     };
    
     
@@ -98,20 +104,15 @@ int main(int argc, char * argv[]) {
     // Give our vertices to OpenGL.
     glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
-
-    glVertexAttribPointer(
-                          0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
-                          3,                  // size
-                          GL_FLOAT,           // type
-                          GL_FALSE,           // normalized?
-                          0,                  // stride
-                          NULL           // array buffer offset
-                          );
     
+    // position attribute
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    // color attribute
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));
+    glEnableVertexAttribArray(1);
     
-    
-    // translate next matrix
-    glm::mat4 myMatrix = glm::translate(glm::mat4(), glm::vec3(10.0f, 0.0f, 0.0f));
+   // glm::mat4 myMatrix = glm::translate(glm::mat4(), glm::vec3(10.0f, 0.0f, 0.0f));
     
     
     glm::mat4 modelviewMatrix;
@@ -139,12 +140,23 @@ int main(int argc, char * argv[]) {
 		// Add rendering code here
         
         
+        
+      
         //get my vertexarray and bind it
+        
+        float timeValue = glfwGetTime();
+        float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+        int vertexColorLocation = glGetUniformLocation(myShader, "color");
+
 
         glUseProgram(myShader);
+        
+
+        
     
         GLint unifomrNumber = glGetUniformLocation(myShader, "transformation");
-        GLint uniformSclae = glad_glGetUniformLocation(myShader, "scale");
+        
+        //GLint uniformSclae = glad_glGetUniformLocation(myShader, "scale");
         
         
         
