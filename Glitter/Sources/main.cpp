@@ -144,12 +144,16 @@ int main(int argc, char * argv[]) {
         glUseProgram(myShader);
     
         GLint unifomrNumber = glGetUniformLocation(myShader, "transformation");
+        GLint uniformSclae = glad_glGetUniformLocation(myShader, "scale");
+        
+        
         
         
         glm::mat4 modelviewInit;
         modelviewInit = glm::translate(
                                          modelviewMatrix,
-                                         glm::vec3(0.3f, -0.3f, 0.0f));
+                                         glm::vec3(0.1f, -0.1f, 0.0f));
+        modelviewInit= glm::scale(modelviewInit, glm::vec3(0.5f, 0.5f, 0.0f));
 
         
         glUniformMatrix4fv(	unifomrNumber,
@@ -171,8 +175,8 @@ int main(int argc, char * argv[]) {
         glm::mat4 modelviewfinal;
         modelviewfinal = glm::translate(
                                        modelviewMatrix,
-                                       glm::vec3(0.57f, -0.57f, 0.0f));
-        
+                                       glm::vec3(0.9f, -0.9f, 0.0f));
+        modelviewfinal= glm::scale(modelviewfinal, glm::vec3(1.5f, 1.5f, 0.0f));
         
         glUniformMatrix4fv(	unifomrNumber,
                            1,
