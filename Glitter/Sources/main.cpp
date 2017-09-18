@@ -155,6 +155,7 @@ int main(int argc, char * argv[]) {
         
     
         GLint unifomrNumber = glGetUniformLocation(myShader, "transformation");
+        GLint colorUniform = glad_glGetUniformLocation(myShader, "colorChange");
         
         //GLint uniformSclae = glad_glGetUniformLocation(myShader, "scale");
         
@@ -167,11 +168,15 @@ int main(int argc, char * argv[]) {
                                          glm::vec3(0.1f, -0.1f, 0.0f));
         modelviewInit= glm::scale(modelviewInit, glm::vec3(0.5f, 0.5f, 0.0f));
 
-        
+       
         glUniformMatrix4fv(	unifomrNumber,
                            1,
                            GL_FALSE,
                            glm::value_ptr(modelviewInit));
+        
+        GLfloat colorVertex[] = {0.3f, -0.4f, -0.2f};
+        glUniform3fv(colorUniform, 1, colorVertex);
+
         
         //call 3 times
         glDrawArrays(GL_TRIANGLES, 0, 27); // Starting from vertex 0; 3 vertices total -> 1 triangle
@@ -190,10 +195,13 @@ int main(int argc, char * argv[]) {
                                        glm::vec3(0.9f, -0.9f, 0.0f));
         modelviewfinal= glm::scale(modelviewfinal, glm::vec3(1.5f, 1.5f, 0.0f));
         
+        
         glUniformMatrix4fv(	unifomrNumber,
                            1,
                            GL_FALSE,
                            glm::value_ptr(modelviewfinal));
+       GLfloat colorVertex2[] = {0.1f, -0.2f, 0.2f};
+        glUniform3fv(colorUniform, 1, colorVertex2);
         
         //call 3 times
         glDrawArrays(GL_TRIANGLES, 0, 27); // Starting from vertex 0; 3 vertices total -> 1 triangle
