@@ -174,10 +174,9 @@ int main(int argc, char * argv[]) {
                            GL_FALSE,
                            glm::value_ptr(modelviewInit));
         
-        GLfloat colorVertex[] = {0.3f, -0.4f, -0.2f};
-        glUniform3fv(colorUniform, 1, colorVertex);
-
         
+        GLfloat colorVertex3[] = {0.0f, 0.0f, 0.0f};
+        glUniform3fv(colorUniform, 1, colorVertex3);
         //call 3 times
         glDrawArrays(GL_TRIANGLES, 0, 27); // Starting from vertex 0; 3 vertices total -> 1 triangle
         
@@ -186,7 +185,9 @@ int main(int argc, char * argv[]) {
                             1,
                            GL_FALSE,
                            glm::value_ptr(modelviewMatrix));
-        
+        GLfloat colorVertex[] = {0.5f, 0.4f, 0.5f};
+        glUniform3fv(colorUniform, 1, colorVertex);
+
         glDrawArrays(GL_TRIANGLES, 0, 27);
         
         glm::mat4 modelviewfinal;
@@ -200,7 +201,7 @@ int main(int argc, char * argv[]) {
                            1,
                            GL_FALSE,
                            glm::value_ptr(modelviewfinal));
-       GLfloat colorVertex2[] = {0.1f, -0.2f, 0.2f};
+       GLfloat colorVertex2[] = {-0.9f, 0.2f, -0.6f};
         glUniform3fv(colorUniform, 1, colorVertex2);
         
         //call 3 times
